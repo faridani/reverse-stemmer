@@ -9,8 +9,13 @@ python main.py input.txt
 
 """
 from PorterStemmer import *
+import time
+
 
 if __name__ == '__main__':
+    print "Starting..."
+    start = time.clock()
+    wordsseen = {}
     p = PorterStemmer()
     if len(sys.argv) > 1:
         for f in sys.argv[1:]:
@@ -32,12 +37,18 @@ if __name__ == '__main__':
                             output += p.stem(word, 0,len(word)-1)
                             
                             outputstring = ''.join([word, ",", p.stem(word, 0,len(word)-1),"\n"])
-                            print outputstring
-                            outfile.write(outputstring)
+                            if not (word in wordsseen):
+                                #print outputstring
+                                outfile.write(outputstring)
+                                wordsseen[word] = 1
+
+                            
                             word = ''
                             
                         output += c.lower()
                     
-
+            #print wordsseen.keys()
             infile.close()
             outfile.close()
+            end = 1000 * (time.clock() - start)
+            print 'Time elapsed: %.3f ms' % (end)

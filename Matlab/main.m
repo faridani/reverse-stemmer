@@ -6,7 +6,7 @@ clear all;
 tic;
 
 disp 'Revese Stemmer by Siamak Faridani'
-disp '--------------------------'
+disp '---------------------------------'
 
 
 disp 'Reading corpus'
@@ -31,13 +31,13 @@ while ~feof(fid1)
                 myflag = 1;
             end
             myflag;
-            if myflag
-            fprintf(fid2,'%s,%s\n',char(r(st)),porterStemmer(cell2mat(r(st))));
-            %cprintf('text', '%s-->%s\n', char(r(st)),porterStemmer(cell2mat(r(st))) ); 
-            stems{end+1} = porterStemmer(cell2mat(r(st)));
-            origwords{end+1} = char(r(st));
+            if (myflag) && ~(isempty(char(r(st))))
+                fprintf(fid2,'%s,%s\n',char(r(st)),porterStemmer(cell2mat(r(st))));
+                %cprintf('text', '%s-->%s\n', char(r(st)),porterStemmer(cell2mat(r(st))) );
+                stems{end+1} = porterStemmer(cell2mat(r(st)));
+                origwords{end+1} = char(r(st));
             else
-                  %pass
+                %pass
             end
             
     end
